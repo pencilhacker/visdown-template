@@ -26,88 +26,65 @@
 </head>
 <body>
 
-<div id="visdown-input">  
- # Visdown is Working well
+<div id="visdown-input">
+# Types of notes in circulation 
+```vis
+width: 400
+height: 300
+data:
+ url: data/notes.csv
+mark: bar
+encoding:
+ x:
+   field: year
+   type: temporal
+ y:
+   field: number
+   type: quantitative
+ color:
+   field: denom
+   type: nominal
+```  
 
- **Make visualisations using only markdown**
-
- Write visualisation using a simple declarative markup like you would write code. Just wrap it in fenced block (three backticks) and mark the language as `vis`.
-
- *Make simple static visualisations*
-
- ```vis
- data:
-   url: data/cars.csv
- mark: bar
- encoding:
-   x:
-     type: quantitative
-     field: kmpl
-   y:
-     type: quantitative
-     field: price
- ```
-
- ```vis
- data:
-   url: data/notes.csv
- mark: line
- encoding:
-   x:
-     field: year
-     type: O
-   y:
-     field: money
-     type: Q
-     aggregate: sum
-   color:
-     field: denom
-     type: nominal
- ```
-   
-   
-   
-   
-   
- Visdown is based on the grammar of interactive graphic (vega-lite) which allows you to specify the visualisation including interactions in a declarative fashion.
-
- *Make interactive visualisations*
-
- Select the circles with the mouse
-
- ```vis
- data:
-   url: "data/cars.csv"
- mark: circle
- selection:
-   brush:
-     type: interval
- encoding:
-   x:
-     type: quantitative
-     field: kmpl
-     scale:
-      domain: [12,25]
-   y:
-     type: quantitative
-     field: price
-     scale:
-      domain: [100,900]
-   color:
-     condition:
-       selection: brush
-       field: type
-       type: nominal
-     value: grey
-   size:
-     type: quantitative
-     field: bhp
- width: 450
- height: 300
- ```    
-
-# Working with Themes
  
+```vis
+width: 500
+height: 300
+data:
+ url: data/notes.csv
+mark: bar
+encoding:
+ x:
+   field: year
+   type: nominal
+ y:
+   field: denom
+   type: quantitative
+   aggregate: count
+ color:
+   field: denom
+   type: nominal
+```
+    
+ 
+```vis
+width: 400
+height: 300
+data:
+ url: data/notes.csv
+mark: bar
+encoding:
+ x:
+   field: year
+   type: nominal
+ y:
+   field: denom
+   type: nominal
+ color:
+   field: number
+   type: quantitative
+```
+    
 ```vis
 width: 400
 height: 300
@@ -117,22 +94,45 @@ mark: area
 encoding:
  x:
    field: year
-   type: temporal
-   axis:
-     format: %Y
-     labelAngle: 0
+   type: ordinal
  y:
-   aggregate: sum
-   field: money
-   type: quantitative
+   field: number
+   type: Q
    stack: normalize
-   axis:
-     format: %
+   aggregate: sum
  color:
    field: denom
-   type: nominal
-```  
-   
+   type: N
+```
+
+```vis
+width: 400
+height: 400
+selection: 
+	highlight:
+		type: single
+        on: mouseover
+data:
+  url: "data/sample.csv"
+mark: bar
+encoding:
+  x:
+    type: N
+    field: area
+  y:
+    type: Q
+    field: sales
+  color:
+    condition:
+    	selection: 
+        	not: highlight
+        field: area
+        type: N
+    value: green
+```
+
+
+    
    
 </div>
 <div id="visdown-output"></div>
